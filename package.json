@@ -1,0 +1,25 @@
+{
+  "name": "Nonprofit-CMS",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/njayap3/Nonprofit-CMS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/njayap3/Nonprofit-CMS/issues"
+  },
+  "homepage": "https://github.com/njayap3/Nonprofit-CMS",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  },
+  "dependencies": {
+    "express": "^4.12.3"
+  }
+}
