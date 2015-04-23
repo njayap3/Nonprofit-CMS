@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Contact</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+</head>
+<body>
+	<h2>Contact Form</h2>
+	<div class="col-md-6">
+		<form>
+			<div class="form-group">
+				<label for="title">Title</label>
+				<input type="text" class="form-control" id="title" name="title" placeholder="Title">
+			</div>
+			<div class="row">
+				<p>Date:</p>
+				<div class="col-md-4 form-group">
+					<label for="month">Month:</label>
+					<select class="form-control" id="month" name="month">
+					  <option>January</option>
+					  <option>February</option>
+					  <option>March</option>
+					</select>
+				</div>
+				<div class="col-md-4 form-group">
+					<label for="year">Year:</label>
+					<select class="form-control" id="year" name="year">
+					  <option>2015</option>
+					  <option>2014</option>
+					  <option>2013</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="category">Category</label>
+				<select class="form-control" id="category" name="category">
+				  <option>1</option>
+				  <option>2</option>
+				  <option>3</option>
+				  <option>4</option>
+				  <option>5</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="author">Author</label>
+				<input type="text" class="form-control" id="author" name="author" placeholder="Author">
+			</div>
+			<div class="form-group">
+				<label for="content">Content</label>
+				<textarea rows="5" class="form-control" id="content" name="content" placeholder="Content"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="urlslug">Url slug</label>
+				<input type="text" class="form-control" id="urlslug" name="urlslug" placeholder="Slug">
+			</div>
+			<button class="btn btn-primary" type="submit">Add to Gallery</button>
+		</form>
+	</div>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Intuit Bootcamp Demonstrations</title>
+	<link rel="stylesheet" type="text/css" href="libs/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="libs/bootstrap/dist/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/site.css">
+</head>
+
+<body>
+	<form>
+		<div class="form-group">
+			<label for="title">Username:</label>
+			<input type="text" class="form-control" id="username" name="username" placeholder="Username">
+		</div>
+		<div class="form-group">
+			<label for="title">Password:</label>
+			<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+		</div>
+		<button id="loginform" class="btn btn-primary" type="button">Log In</button>
+		<button id="addcontact" class="btn btn-primary" type="button">Add Contact</button>
+	</form>
+	<script type="text/javascript" src="libs/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="libs/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="libs/underscore/underscore.js"></script>
+	<script type="text/javascript" src="libs/backbone/backbone.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/loginform.js"></script>
+	<script>
+
+		var BaseModel = Backbone.Model.extend({
+			sync: function(method, model, options) {
+				if (!options) {
+					options = {};
+				}
+				options.beforeSend = function(xhr) {
+					xhr.setRequestHeader("X-CSRF-Token", window.csrfToken);
+				};
+				Backbone.sync.call(this, method, model, options)
+					.then(function(data, status, xhr) {
+						window.csrfToken = xhr.getResponseHeader("X-CSRF-Token");
+						console.dir(window.csrfToken);
+				});
+			},
+			idAttribute: "_id"
+		});
+		
+		var Contact = BaseModel.extend({
+			urlRoot: "/api/contact",
+			defaults: {
+				_id: null,
+				fname: null,
+				lname: null,
+				email: null,
+				phoneNo: 39,
+				comments: null,
+				reason: null,
+				contactMethod: null
+			}
+		});
+
+		document.getElementById("addcontact").addEventListener("click", function() {
+			var t = new Contact({});
+			t.set("fname", "Tina");
+			t.set("lname", "User1");
+			t.set("email", "tina@gmail.com");
+			t.set("phoneNo", 1234567);
+			t.set("comments", "none");
+			t.set("reason", "nothing");
+			t.set("contactMethod", "phone");
+			t.save(null, {
+				success: function() {
+					console.dir(t.attributes);
+				}
+			});
+
+			console.dir(window);
+			/*console.log(JSON.attributes(t.toJSON()));*/
+			console.dir(t.attributes);
+
+		});
+		
+
+	</script>
+</body>
+
+</html>

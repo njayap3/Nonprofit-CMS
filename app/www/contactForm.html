@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Contact Form</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+</head>
+<body>
+	<h2>Contact Form</h2>
+	<p>Please enter your details</p>
+	<div class="col-md-6">
+	<form>
+		<div class="form-group">
+			<label for="fname">First Name</label>
+			<input type="text" class="form-control" id="fname" name="fname" placeholder="Enter your First name">
+		</div>
+		<div class="form-group">
+			<label for="lname">Last Name</label>
+			<input type="text" class="form-control" id="lname" name="lname" placeholder="Enter your Last name">
+		</div>
+		<div class="form-group">
+			<label for="email">Email</label>
+			<input type="email" class="form-control" id="email" name="email" placeholder="youemail@mail.com">
+		</div>
+		<div class="form-group">
+			<label for="phoneno">Phone</label>
+			<input type="phone" class="form-control" id="phoneno" name="phoneno" placeholder="Enter your phone number">
+		</div>
+		<div class="form-group">
+			<label for="comments">Comments</label>
+			<input type="textarea" rows="5" class="form-control" id="comments" name="comments" placeholder="Your comments">
+		</div>
+		<div class="form-group">
+			<label for="reason">Reason</label>
+			<select class="form-control" id="reason" name="reason">
+			  <option>1</option>
+			  <option>2</option>
+			  <option>3</option>
+			  <option>4</option>
+			  <option>5</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="contactmethod">Best way to contact</label>
+			<input type="textarea" class="form-control" id="contactmethod" name="contactmethod" placeholder="Besy way to contact">
+		</div>
+		<button class="btn btn-primary" type="submit">Submit</button>
+	</form>
+	</div>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>

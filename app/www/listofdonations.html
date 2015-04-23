@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>List of Donations</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<script id="donations-list" type="template/handlebars">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Amount</th>
+				<th>Date</th>
+				<th>Credit card</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+		{{#each donations}}
+			<tr>
+				<td>{{name}}</td>
+				<td>${{amount}}</td>
+				<td>{{date}}</td>
+				<td>*****-{{creditCardNum}}</td>
+				<td>
+					<div class"btn-group btn-group-sm">
+						<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> View</button>
+						<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-usd"></span> Refund</button>
+					</div>
+				</td>
+			</tr>
+		{{/each}}
+		</tbody>
+	</table>
+	</script>
+</head>
+<body>	
+	<h2>Donation Table</h2>
+	<button class="btn btn-primary" type="button" id="donations-btn">Get Donations List</button>
+	<div id="get-all-donations"></div>
+	<!-- <table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Amount</th>
+				<th>Date </th>
+				<th>Credit card</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Person 1</td>
+				<td>$100</td>
+				<td>April 1 2015</td>
+				<td>*****-1234</td>
+				<td>
+					<div class"btn-group btn-group-sm">
+						<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> View</button>
+						<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-usd"></span> Refund</button>
+					</div>
+				</td>
+			</tr>
+
+		</tbody>
+	</table> -->
+		<script type="text/javascript" src="libs/jquery/dist/jquery.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="libs/underscore/underscore.js"></script>
+		<script type="text/javascript" src="libs/backbone/backbone.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script src="libs/handlebars/handlebars.js"></script>
+		<script>
+			function customSync(method, model, options) {
+				if (!options) {
+					options = {};
+				}
+				options.beforeSend = function(xhr) {
+					xhr.setRequestHeader("X-CSRF-Token", window.csrfToken || document.cookies);
+				};
+				Backbone.sync.call(this, method, model, options)
+					.then(function(data, status, xhr) {
+						window.csrfToken = xhr.getResponseHeader("X-CSRF-Token");
+					});
+			}
+
+			var BackboneModel = Backbone.Model.extend({
+				sync: customSync,
+				idAttribute: "_id" 
+			});
+
+			var Donation = BackboneModel.extend({
+				urlRoot: "/api/donation"
+			});
+
+			var BackboneCollection = Backbone.Collection.extend({
+				sync: customSync
+			});
+
+			var Donations = BackboneCollection.extend({
+				model: Donation,
+				url: "/api/donations"
+
+			});
+
+			var donations = new Donations();
+
+			window.addEventListener("DOMContentLoaded", function () {
+				document.getElementById("donations-btn").addEventListener("click", function() {
+					donations.fetch({
+						success: function() {
+							console.dir(donations.toJSON());
+							var source = document.getElementById("donations-list").innerHTML;
+							var template = Handlebars.compile(source);
+							var html = template({
+								donations:  donations.toJSON()
+							});
+							document.getElementById("get-all-donations").innerHTML = html;
+						}
+					});
+
+				});
+
+			});
+
+			
+
+		</script>
+</body>
+</html>

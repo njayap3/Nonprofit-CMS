@@ -17,9 +17,20 @@
   },
   "homepage": "https://github.com/njayap3/Nonprofit-CMS",
   "devDependencies": {
+    "bower": "^1.4.1",
     "grunt": "^0.4.5"
   },
   "dependencies": {
-    "express": "^4.12.3"
+    "bluebird": "^2.9.24",
+    "body-parser": "^1.12.3",
+    "crypto": "0.0.3",
+    "csrf": "^2.0.6",
+    "express": "^4.12.3",
+    "express-session": "^1.11.1",
+    "mongoose": "^4.0.1",
+    "multer": "^0.1.8",
+    "passport": "^0.2.1",
+    "winston": "^1.0.0",
+    "ws": "^0.7.1"
   }
 }

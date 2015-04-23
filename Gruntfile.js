@@ -1,25 +1,52 @@
 module.exports = function (grunt) {
 
 	grunt.initConfig({
-		webServer: {
-			rootFolder: "www",
-			port: 8080
+		httpServer: {
+			wwwRoot: "app/www",
+			port: 8080,
+			callback: function() {
+				grunt.log.writeln("web server listening on port: " + this.port);
+			}
+		},
+		mongoServer: {
+			host: "localhost",
+			port: 27017,
+			dbName: "Bootcamp"
+		},
+		loggerConfig: {
+			transports: {
+				console: {
+					level: "debug",
+					colorize: true,
+					timestamp: true
+				},
+				file: {
+					level: "debug",
+					fileName: "logs/app.log",
+					timestamp: true
+				}
+			}
 		}
 	});
 
-	grunt.registerTask("default", "start a web server", function() {
+	grunt.registerTask("webServer", "start a web server", function() {
 
 		var 
-			webServer = require("./web-server");
-			webServerConfig = grunt.config("webServer");
+			httpServer = require("./app/http-server"),
+			logger = require("./app/logger.js")(grunt.config("loggerConfig")),
+			app = require("./app/app"),
 
-		this.async();
+			config = {
+				webSockets: require("./app/web-sockets"),
+				httpServer: grunt.config("httpServer"),
+				mongoServer: grunt.config("mongoServer")
+			};
 
-		webServer(webServerConfig, function() {
-			grunt
-				.log
-				.writeln("web server listening on port: " + webServerConfig.port);
-		});
-
+			logger.info("testing...");
+			this.async();
+			config.app = app(config);
+			httpServer(config, logger);
 	});
+
+	grunt.registerTask("default", ["webServer"]);
 };
