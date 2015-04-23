@@ -4,6 +4,7 @@
 	<title>List of Donations</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<!--
 	<script id="donations-list" type="template/handlebars">
 	<table class="table table-bordered">
 		<thead>
@@ -32,7 +33,8 @@
 		{{/each}}
 		</tbody>
 	</table>
-	</script>
+	</script> 
+	-->
 </head>
 <body>	
 	<h2>Donation Table</h2>
@@ -70,8 +72,12 @@
 		<script type="text/javascript" src="libs/backbone/backbone.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
 		<script src="libs/handlebars/handlebars.js"></script>
+		<script src="js/templates.js"></script>
+		<script src="js/app.common.js"></script>
+		<script src="js/models/donations.model.js"></script>
+		<script src="js/collections/donations.collection.js"></script>
 		<script>
-			function customSync(method, model, options) {
+			/*function customSync(method, model, options) {
 				if (!options) {
 					options = {};
 				}
@@ -101,7 +107,7 @@
 				model: Donation,
 				url: "/api/donations"
 
-			});
+			});*/
 
 			var donations = new Donations();
 
@@ -110,8 +116,9 @@
 					donations.fetch({
 						success: function() {
 							console.dir(donations.toJSON());
-							var source = document.getElementById("donations-list").innerHTML;
-							var template = Handlebars.compile(source);
+							//var source = document.getElementById("donations-list").innerHTML;
+							//var template = Handlebars.compile(source);
+							var template = window.templates.donations;
 							var html = template({
 								donations:  donations.toJSON()
 							});
