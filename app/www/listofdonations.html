@@ -4,68 +4,12 @@
 	<title>List of Donations</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-	<!--
-	<script id="donations-list" type="template/handlebars">
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Amount</th>
-				<th>Date</th>
-				<th>Credit card</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-		{{#each donations}}
-			<tr>
-				<td>{{name}}</td>
-				<td>${{amount}}</td>
-				<td>{{date}}</td>
-				<td>*****-{{creditCardNum}}</td>
-				<td>
-					<div class"btn-group btn-group-sm">
-						<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> View</button>
-						<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-usd"></span> Refund</button>
-					</div>
-				</td>
-			</tr>
-		{{/each}}
-		</tbody>
-	</table>
-	</script> 
-	-->
 </head>
 <body>	
 	<h2>Donation Table</h2>
 	<button class="btn btn-primary" type="button" id="donations-btn">Get Donations List</button>
-	<div id="get-all-donations"></div>
-	<!-- <table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Amount</th>
-				<th>Date </th>
-				<th>Credit card</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Person 1</td>
-				<td>$100</td>
-				<td>April 1 2015</td>
-				<td>*****-1234</td>
-				<td>
-					<div class"btn-group btn-group-sm">
-						<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> View</button>
-						<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-usd"></span> Refund</button>
-					</div>
-				</td>
-			</tr>
-
-		</tbody>
-	</table> -->
+		<div id="get-all-donations"></div>
+	
 		<script type="text/javascript" src="libs/jquery/dist/jquery.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="libs/underscore/underscore.js"></script>
@@ -76,6 +20,8 @@
 		<script src="js/app.common.js"></script>
 		<script src="js/models/donations.model.js"></script>
 		<script src="js/collections/donations.collection.js"></script>
+		<script src="js/views/donations.view.js"></script>
+		<script src="js/routers/app.router.js"></script>
 		<script>
 			/*function customSync(method, model, options) {
 				if (!options) {
@@ -108,12 +54,45 @@
 				url: "/api/donations"
 
 			});*/
+			
+			/*var DonationsView = Backbone.View.extend({
+						events: {
+							"click tbody": "rowDonation"
+						},
+						template: templates["donations"],
+						render: function() {
+							this.$el.html(this.template({
+								donations: this.collection
+							}));
+						},
+						initialize: function(options) {
+							this.options = options;
+						},
+						rowDonation: function(e) {
+							if (e.target instanceof HTMLButtonElement) {
+								console.dir($(e.target).attr("data-model-id"));
+								console.log("handle donation fired!!!!");
+								console.dir($(e.target).closest("tr"));
+							}
+						}
+					});
+					var ts = new Donations();
+					ts.fetch({ success: function() {
+						var tsView = new DonationsView({
+							el: $("#all-donations"),
+							collection: ts.toJSON()
+						});
+						console.dir(tsView);
+						tsView.render();
+					}});
+
+*/
 
 			var donations = new Donations();
 
 			window.addEventListener("DOMContentLoaded", function () {
 				document.getElementById("donations-btn").addEventListener("click", function() {
-					donations.fetch({
+					/*donations.fetch({
 						success: function() {
 							console.dir(donations.toJSON());
 							//var source = document.getElementById("donations-list").innerHTML;
@@ -124,12 +103,21 @@
 							});
 							document.getElementById("get-all-donations").innerHTML = html;
 						}
+					});*/
+					
+					donations.fetch({ 
+						success: function() {
+							var donationView = new DonationsView({
+								el: $("#get-all-donations"),
+								collection: donations.toJSON()
+							});
+							console.dir(donationView.collection);
+							donationView.render();
+						}
 					});
-
 				});
 
 			});
-
 			
 
 		</script>

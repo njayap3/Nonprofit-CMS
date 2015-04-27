@@ -41,6 +41,25 @@ module.exports = function(config) {
 		mongoose.connect("mongodb://" +
     			config.mongoServer.host + ":" + config.mongoServer.port + "/" + config.mongoServer.dbName);
 
+		app.use("/js", express.static(config.httpServer.jsRoot, {
+			setHeaders: function(res, filePath) {
+				if (/.gz.js$/.test(filePath)) {
+					res.setHeader("Content-Encoding", "gzip");
+				}
+			}
+		}));
+
+		// no longer needed because uglify is combining the lib files with the app files
+		app.use("/libs", express.static(config.httpServer.libsRoot));
+
+		app.use("/css", express.static(config.httpServer.cssRoot, {
+			setHeaders: function(res, filePath) {
+				if (/.gz.css$/.test(filePath)) {
+					res.setHeader("Content-Encoding", "gzip");
+				}
+			}
+		}));
+
 
 		app.use("/api", bodyParser.json());
 
