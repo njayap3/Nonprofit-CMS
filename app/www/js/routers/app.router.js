@@ -41,14 +41,22 @@ var AppRouter = Backbone.Router.extend({
 			this.currentView.undelegateEvents();
 			this.currentView.remove();
 		}
-		this.currentView = new DonationsView({
+
+		var curView = new donationSideNav({
+			router: this
+		});
+		curView.render();
+		$("#donations").append(curView.$el);
+
+		var subView = new DonationsView({
 			collection: new Donations(), 
-			//el: $("#donations-list"),
+			el: $("#donations-list"),
 			router: this
 		});
 
-		this.currentView.render();
-		$("#donations-list").append(this.currentView.$el);
+		subView.render();
+		//$("#donations-list").append(subView.$el);
+		this.currentView = curView;
 		
 	},
 
@@ -59,14 +67,26 @@ var AppRouter = Backbone.Router.extend({
 			this.currentView.remove();
 		}
 
-		this.currentView = new DonationsFormView({
-			model: new Donation(),
-			//el: $("#donations-form"),
+		var curView = new donationSideNav({
 			router: this
 		});
 
-		this.currentView.render();
-		$("#donations-form").append(this.currentView.$el);
+		console.dir(curView);
+		curView.render();
+		$("#donations").append(curView.$el);
+
+		/* For now this is a hack.
+		TODO: Load the left view only once? and load the right view on route? */
+		$(".donationsForm").tab("show");
+
+		var subView = new DonationsFormView({
+			model: new Donation(),
+			el: $("#donations-form"),
+			router: this
+		});
+		subView.render();
+		
+		this.currentView = curView;
 	},
 
 	/*showTransaction: function(transactionId) {

@@ -1,0 +1,32 @@
+nav {
+	color: white;
+}
+
+@-webkit-keyframes animateEg {
+	from {
+		background-color: blue;
+	}
+	to {
+		background-color: red;
+	}
+}
+
+@keyframes animateEg {
+	from {
+		background-color: blue;
+	}
+	to {
+		background-color: red;
+	}
+}
+
+#sampleAnimation {
+	width: 100px;
+	height: 300px;
+	background-color: blue;
+	-webkit-animation-name: animateEg;
+	-webkit-animation-duration: 4s;
+	animation-name: animateEg;
+	animation-duration: 4s;
+}
+

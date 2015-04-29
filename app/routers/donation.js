@@ -14,8 +14,8 @@ module.exports = function(config, mongoose) {
 		cvv: Number,
 		name: String,
 		address: String,
-		comments: String,
-		date: String
+		comments: String
+		//date: String
 	});
 
 	var DonationModel = mongoose.model("donations", donationSchema);
